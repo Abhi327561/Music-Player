@@ -15,9 +15,12 @@ app.use(express.json());
 connectDB();
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [process.env.FRONTEND_URL, "http://localhost:5173"].filter(Boolean),
     credentials: true,
 }));
+
+app.get("/", (req, res) => res.status(200).json({ status: "ok", message: "Music Player API running" }));
+app.get("/api/health", (req, res) => res.status(200).json({ status: "ok" }));
 
 app.use("/api/songs", songRouter);
 app.use("/api/auth", router);

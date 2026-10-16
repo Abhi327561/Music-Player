@@ -116,21 +116,25 @@ cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend/` directory:
+Create a `.env` file in the `backend/` directory (see `backend/.env.example`):
 
 ```env
 PORT=5001
-MONGO_URI=your_mongodb_connection_string
+MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=7d
+FRONTEND_URL=http://localhost:5173
 
 # ImageKit
 IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
 IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
 
-# Nodemailer
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
+# Mailtrap (Nodemailer)
+MAILTRAP_HOST=sandbox.smtp.mailtrap.io
+MAILTRAP_PORT=587
+MAILTRAP_USER=your_mailtrap_user
+MAILTRAP_PASS=your_mailtrap_pass
 ```
 
 Start the backend dev server:
