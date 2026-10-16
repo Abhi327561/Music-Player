@@ -268,3 +268,41 @@
     @apply flex-col p-2 gap-2;
   }
 }
+
+@media (max-width: 480px) {
+  .sidemenu-root {
+    @apply w-full p-2 gap-2 flex-row items-center;
+  }
+  .sidemenu-header {
+    @apply py-1 px-1;
+  }
+  .sidemenu-logo-img {
+    @apply w-9 h-9;
+  }
+  .sidemenu-logo-title {
+    @apply hidden;
+  }
+  .sidemenu-nav {
+    @apply flex-1;
+  }
+  .sidemenu-nav-list {
+    @apply flex-row justify-center gap-1;
+  }
+  .sidemenu-nav-btn {
+    @apply justify-center px-3 py-2.5;
+  }
+  .sidemenu-nav-btn span {
+    @apply hidden;
+  }
+  .sidemenu-profile-row {
+    @apply flex-row p-1.5 gap-1 border-0 bg-transparent;
+  }
+  .sidemenu-avatar-img,
+  .profile-placeholder {
+    @apply w-9 h-9 rounded-lg;
+  }
+  .sidemenu-username-wrapper,
+  .settings-container {
+    @apply hidden;
+  }
+}

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { updateFavourites } from "../../redux/slices/authSlice";
 import { formatTime } from "../utils/helper";
 import { GiPauseButton } from "react-icons/gi";
@@ -40,10 +41,26 @@ const ControlArea = ({ playerState, playerControls }) => {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       dispatch(updateFavourites(res.data));
+      toast.success(isLiked ? "Removed from favourites" : "Added to favourites");
     } catch (error) {
       console.error("Like failed", error);
+      toast.error("Couldn't update favourites");
     }
   };
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target.matches("input, textarea, select")) return;
+      if (e.code === "Space") {
+        e.preventDefault();
+        handleTogglePlay?.();
+      }
+      if (e.key === "ArrowRight") handleNext?.();
+      if (e.key === "ArrowLeft") handlePrev?.();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [handleTogglePlay, handleNext, handlePrev]);
 
   return (
     <div className="control-root">
@@ -91,12 +108,13 @@ const ControlArea = ({ playerState, playerControls }) => {
         <input
           type="range"
           min={0}
-          max={duration}
-          value={currentTime}
-          className="control-progress"
+          max={duration || 0}
+          value={currentTime || 0}
+          aria-label="Seek"
+          className="control-progress slider-glow"
           onChange={(e) => handleSeek(Number(e.target.value))}
           style={{
-            background: `Linear-gradient(to right, #a85547 ${(duration ? (currentTime / duration) * 100 : 0)}%, #333 ${(duration ? (currentTime / duration) * 100 : 0)}%)`,
+            background: `linear-gradient(to right, #a855f7 ${(duration ? (currentTime / duration) * 100 : 0)}%, #333 ${(duration ? (currentTime / duration) * 100 : 0)}%)`,
           }}
         />
         <div className="control-times">

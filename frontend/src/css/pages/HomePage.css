@@ -115,10 +115,14 @@
 }
 
 @media (max-width: 480px) {
+  .homepage-main-wrapper {
+    @apply flex-col;
+  }
   .homepage-sidebar {
-    @apply w-0 p-0;
+    @apply w-full p-1;
     border-right: none;
-    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: visible;
   }
 
   .homepage-content {

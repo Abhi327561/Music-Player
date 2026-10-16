@@ -10,7 +10,7 @@ const Footer = ({ playerState, playerControls, playerFeatures }) => {
 
   return (
     <footer className="footer-root footer-glow">
-      <SongDetail currentSong={playerState.currentSong} />
+      <SongDetail currentSong={playerState.currentSong} isPlaying={playerState.isPlaying} />
       <ControlArea playerState={playerState} playerControls={playerControls} />
       <Features playerState={playerState} playerFeatures={playerFeatures} />
     </footer>

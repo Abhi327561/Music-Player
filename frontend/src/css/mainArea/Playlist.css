@@ -143,6 +143,22 @@
   text-shadow: 0 2px 10px rgba(168, 85, 247, 0.5);
 }
 
+.playlist-card-active {
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.2)) !important;
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.35) !important;
+}
+.playlist-active-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.9);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .playlist-grid {

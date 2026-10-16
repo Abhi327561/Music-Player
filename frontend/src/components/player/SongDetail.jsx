@@ -1,7 +1,7 @@
 import React from "react";
 import "../../css/footer/SongDetail.css";
 
-const SongDetail = ({ currentSong }) => {
+const SongDetail = ({ currentSong, isPlaying = false }) => {
   const fallback = {
     name: "Song not selected",
     artist_name: "Not selected",
@@ -13,8 +13,18 @@ const SongDetail = ({ currentSong }) => {
 
   return (
     <div className="songdetail-root">
-      <div className="songdetail-image-wrapper">
-        <img src={data.image} alt={data.name} className="songdetail-image" />
+      <div className={`songdetail-image-wrapper ${isPlaying ? "is-playing" : ""}`}>
+        <img
+          src={data.image}
+          alt={data.name}
+          className={`songdetail-image ${isPlaying ? "spin-slow" : ""}`}
+          style={isPlaying ? { borderRadius: "9999px" } : undefined}
+        />
+        {isPlaying && (
+          <span className="songdetail-eq" aria-hidden="true">
+            <span className="eq"><span /><span /><span /><span /></span>
+          </span>
+        )}
       </div>
 
       <div className="songdetail-text">

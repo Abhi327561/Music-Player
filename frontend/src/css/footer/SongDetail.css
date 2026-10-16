@@ -34,6 +34,23 @@
     0 0 60px rgba(168, 85, 247, 0.2);
 }
 
+.songdetail-image-wrapper.is-playing::before {
+  opacity: 1;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.songdetail-eq {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  display: inline-flex;
+  padding: 5px 6px;
+  border-radius: 9999px;
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  backdrop-filter: blur(8px);
+}
+
 /* Animated glow ring around image */
 .songdetail-image-wrapper::before {
   content: "";

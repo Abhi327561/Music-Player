@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "../../css/mainArea/Playlist.css";
 
 const Playlist = ({onSelectTag}) => {
+  const [activeTag, setActiveTag] = useState("");
   const items = [
     {
       id: 1,
@@ -37,17 +39,43 @@ const Playlist = ({onSelectTag}) => {
 
   return (
     <div className="playlist-root">
-      <h1 className="playlist-title">Playlists</h1>
+      <div className="mb-2 flex items-center justify-between">
+        <h1 className="playlist-title">Playlists</h1>
+        {activeTag && (
+          <button
+            type="button"
+            onClick={() => { setActiveTag(""); onSelectTag?.(""); }}
+            className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-gray-200 transition hover:bg-white/20"
+          >
+            Clear · {activeTag}
+          </button>
+        )}
+      </div>
 
       <div className="playlist-wrapper">
         <div className="playlist-grid">
-          {items.map((item) => (
-            <div className="playlist-card" key={item.id}
-            onClick={()=> onSelectTag(item.tag)}>
-              <img src={item.img} alt={item.label} className="playlist-image" />
+          {items.map((item, i) => {
+            const isActive = activeTag === item.tag;
+            return (
+            <motion.div
+              className={`playlist-card ${isActive ? "playlist-card-active" : ""}`}
+              key={item.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
+              whileHover={{ y: -6 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={()=> { setActiveTag(item.tag); onSelectTag(item.tag); }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter") { setActiveTag(item.tag); onSelectTag(item.tag); } }}
+            >
+              <img src={item.img} alt={item.label} loading="lazy" className="playlist-image" />
               <h4 className="playlist-label">{item.label}</h4>
-            </div>
-          ))}
+              {isActive && <span className="playlist-active-dot" aria-hidden="true" />}
+            </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>
