@@ -2,6 +2,12 @@
 
 A full-stack music streaming web application built with the **MERN stack** (MongoDB, Express.js, React, Node.js). Users can browse and play songs, manage playlists, mark favourites, and authenticate securely with JWT.
 
+## 🌐 Live Demo
+
+- **Frontend (Vercel):** https://music-player-jade-three.vercel.app
+- **Backend API (Render):** https://music-player-backend-i1a1.onrender.com
+- **API Health Check:** https://music-player-backend-i1a1.onrender.com/api/health
+
 ---
 
 ## 🚀 Features
@@ -94,9 +100,9 @@ Music-Player/
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) v18+
-- [MongoDB](https://www.mongodb.com/) (local or Atlas)
+- [MongoDB](https://www.mongodb.com/) Atlas (allow `0.0.0.0/0` for Render) or local
 - An [ImageKit](https://imagekit.io/) account
-- An email account for Nodemailer (e.g. Gmail with App Password)
+- A [Mailtrap](https://mailtrap.io/) account for password-reset emails (sandbox for dev, real SMTP for prod)
 
 ---
 
@@ -155,7 +161,35 @@ npm install
 npm run dev
 ```
 
+Create a `.env` file in `frontend/` (see `frontend/.env.example`):
+
+```env
+VITE_BASE_URL=http://localhost:5001
+```
+
 The frontend runs on `http://localhost:5173`
+
+---
+
+## ☁️ Deployment
+
+### Backend — Render (Web Service)
+- Root Directory: `backend`
+- Build Command: `npm install`
+- Start Command: `npm start`
+- Node version: 18+
+- Set all vars from `backend/.env.example`:
+  `PORT`, `MONGODB_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`,
+  `FRONTEND_URL` (= your Vercel URL),
+  `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_PRIVATE_KEY`, `IMAGEKIT_URL_ENDPOINT`,
+  `MAILTRAP_HOST`, `MAILTRAP_PORT`, `MAILTRAP_USER`, `MAILTRAP_PASS`
+- Verify: `GET /api/health` returns `{ "status": "ok" }`
+
+### Frontend — Vercel (Vite)
+- Root Directory: `frontend`
+- Framework: Vite, Build: `npm run build`, Output: `dist`
+- Env var: `VITE_BASE_URL=https://music-player-backend-i1a1.onrender.com` (no trailing slash)
+- After deploy, update Render `FRONTEND_URL` to your Vercel URL and redeploy backend (fixes CORS + reset-password links).
 
 ---
 
